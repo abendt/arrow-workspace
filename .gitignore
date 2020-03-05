@@ -1,0 +1,12 @@
+.gradle
+*.csv
+arrow-ank-lib/
+arrow-core-lib/
+arrow-examples-lib/
+arrow-examples/
+arrow-fx-lib/
+arrow-incubator-lib/
+arrow-integrations-lib/
+arrow-optics-lib/
+arrow-ui-lib/
+arrow/

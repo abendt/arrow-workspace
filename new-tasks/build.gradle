@@ -1,0 +1,229 @@
+plugins {
+    id "base"
+}
+
+ext {
+    ARROW_GROUP = "Arrow"
+    ARROW_CORE_GROUP = "Arrow Core"
+    ARROW_UI_GROUP = "Arrow UI"
+    ARROW_FX_GROUP = "Arrow Fx"
+    ARROW_INCUBATOR_GROUP = "Arrow Incubator"
+    ARROW_OPTICS_GROUP = "Arrow Optics"
+    ARROW_ANK_GROUP = "Arrow Ank"
+    ARROW_INTEGRATIONS_GROUP = "Arrow Integrations"
+    ARROW_EXAMPLES_GROUP = "Arrow Examples"
+}
+
+clean {
+    group = ARROW_GROUP
+    description = "Clean all the Arrow libs and examples"
+    dependsOn ':cleanArrowLibs'
+    dependsOn ':cleanArrowExamples'
+}
+
+build {
+    group = ARROW_GROUP
+    description = "Build all the Arrow libs and examples with local Arrow dependencies"
+    dependsOn ':buildArrowLibs'
+    dependsOn ':buildArrowExamples'
+}
+
+task installLibs(type:Exec) {
+    group = ARROW_GROUP
+    description = "Install all the Arrow libs to work with local Arrow dependencies"
+    commandLine './scripts/install-libs.sh'
+}
+
+// ARROW ANK
+
+task cleanArrowAnk(type:Exec) {
+    group = ARROW_ANK_GROUP
+    description = "Clean Arrow Ank"
+    commandLine './scripts/clean.sh', 'arrow-ank-lib'
+}
+
+task buildArrowAnk {
+    group = ARROW_ANK_GROUP
+    description = "Build Arrow Ank with local Arrow dependencies"
+    dependsOn ':installLibs'
+    dependsOn ':testArrowAnk'
+}
+
+task testArrowAnk(type:Exec) {
+    mustRunAfter ':installLibs'
+    commandLine './scripts/test-lib.sh', 'arrow-ank-lib'
+}
+
+// ARROW CORE
+
+task cleanArrowCore(type:Exec) {
+    group = ARROW_CORE_GROUP
+    description = "Clean Arrow Core"
+    commandLine './scripts/clean.sh', 'arrow-core-lib'
+}
+
+task buildArrowCore {
+    group = ARROW_CORE_GROUP
+    description = "Build Arrow Core with local Arrow dependencies"
+    dependsOn ':installLibs'
+    dependsOn ':testArrowCore'
+}
+
+task testArrowCore(type:Exec) {
+    mustRunAfter ':installLibs'
+    commandLine './scripts/test-lib.sh', 'arrow-core-lib'
+}
+
+// ARROW EXAMPLES
+
+task cleanArrowExamples(type:Exec) {
+    group = ARROW_EXAMPLES_GROUP
+    description = "Clean Arrow Examples"
+    commandLine './scripts/clean.sh', 'arrow-examples'
+}
+
+task buildArrowExamples {
+    group = ARROW_EXAMPLES_GROUP
+    description = "Build Arrow Examples with local Arrow dependencies"
+    dependsOn ':installLibs'
+    dependsOn ':testArrowCore'
+}
+
+task testArrowExamples(type:Exec) {
+    mustRunAfter ':installLibs'
+    commandLine './scripts/test-lib.sh', 'arrow-examples'
+}
+
+// ARROW FX
+
+task cleanArrowFx(type:Exec) {
+    group = ARROW_FX_GROUP
+    description = "Clean Arrow Fx"
+    commandLine './scripts/clean.sh', 'arrow-fx-lib'
+}
+
+task buildArrowFx {
+    group = ARROW_FX_GROUP
+    description = "Build Arrow Fx with local Arrow dependencies"
+    dependsOn ':installLibs'
+    dependsOn ':testArrowFx'
+}
+
+task testArrowFx(type:Exec) {
+    mustRunAfter ':installLibs'
+    commandLine './scripts/test-lib.sh', 'arrow-fx-lib'
+}
+
+// ARROW INCUBATOR
+    
+task cleanArrowIncubator(type:Exec) {
+    group = ARROW_INCUBATOR_GROUP
+    description = "Clean Arrow Incubator"
+    commandLine './scripts/clean.sh', 'arrow-incubator-lib'
+}
+    
+task buildArrowIncubator {
+    group = ARROW_INCUBATOR_GROUP
+    description = "Build Arrow Incubator with local Arrow dependencies"
+    dependsOn ':installLibs'
+    dependsOn ':testArrowIncubator'
+}
+
+task testArrowIncubator(type:Exec) {
+    mustRunAfter ':installLibs'
+    commandLine './scripts/test-lib.sh', 'arrow-incubator-lib'
+}
+
+// ARROW INTEGRATIONS
+    
+task cleanArrowIntegrations(type:Exec) {
+    group = ARROW_INTEGRATIONS_GROUP
+    description = "Clean Arrow Integrations"
+    commandLine './scripts/clean.sh', 'arrow-integrations-lib'
+}
+    
+task buildArrowIntegrations {
+    group = ARROW_INTEGRATIONS_GROUP
+    description = "Build Arrow Integrations with local Arrow dependencies"
+    dependsOn ':installLibs'
+    dependsOn ':testArrowIntegrations'
+}
+
+task testArrowIntegrations(type:Exec) {
+    mustRunAfter ':installLibs'
+    commandLine './scripts/test-lib.sh', 'arrow-integrations-lib'
+}
+
+// ARROW OPTICS
+    
+task cleanArrowOptics(type:Exec) {
+    group = ARROW_OPTICS_GROUP
+    description = "Clean Arrow Optics"
+    commandLine './scripts/clean.sh', 'arrow-optics-lib'
+}
+    
+task buildArrowOptics {
+    group = ARROW_OPTICS_GROUP
+    description = "Build Arrow Optics with local Arrow dependencies"
+    dependsOn ':installLibs'
+    dependsOn ':testArrowOptics'
+}
+
+task testArrowOptics(type:Exec) {
+    mustRunAfter ':installLibs'
+    commandLine './scripts/test-lib.sh', 'arrow-optics-lib'
+}
+
+// ARROW UI
+    
+task cleanArrowUI(type:Exec) {
+    group = ARROW_UI_GROUP
+    description = "Clean Arrow UI"
+    commandLine './scripts/clean.sh', 'arrow-ui-lib'
+}
+
+task buildArrowUI {
+    group = ARROW_UI_GROUP
+    description = "Build Arrow UI with local Arrow dependencies"
+    dependsOn ':installLibs'
+    dependsOn ':testArrowUI'
+}
+
+task testArrowUI(type:Exec) {
+    mustRunAfter ':installLibs'
+    commandLine './scripts/test-lib.sh', 'arrow-ui-lib'
+}
+
+// MAIN TASKS
+
+task cleanArrowLibs {
+    group = ARROW_GROUP
+    description = "Clean all the Arrow libs"
+    dependsOn ':cleanArrowAnk'
+    dependsOn ':cleanArrowCore'
+    dependsOn ':cleanArrowFx'
+    dependsOn ':cleanArrowIncubator'
+    dependsOn ':cleanArrowIntegrations'
+    dependsOn ':cleanArrowOptics'
+    dependsOn ':cleanArrowUI'
+    dependsOn ':cleanExamples'
+}
+
+task buildArrowLibs {
+    group = ARROW_GROUP
+    description = "Build all the Arrow libs with local Arrow dependencies"
+    dependsOn ':installLibs'
+    dependsOn ':testArrowLibs'
+}
+
+task testArrowLibs {
+    mustRunAfter ':installLibs'
+    dependsOn ':testArrowAnk'
+    dependsOn ':testArrowCore'
+    dependsOn ':testArrowFx'
+    dependsOn ':testArrowIncubator'
+    dependsOn ':testArrowIntegrations'
+    dependsOn ':testArrowOptics'
+    dependsOn ':testArrowUI'
+    dependsOn ':testExamples'
+}
